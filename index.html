@@ -282,7 +282,7 @@
           <div class="pic">
             <img id="pImg" alt="ภาพน้ำหอม" />
             <div class="imgHint" id="imgHint">
-              โหลดรูปไม่สำเร็จ — ให้ตั้งค่าแชร์ไฟล์ใน Google Drive เป็น “Anyone with the link”
+              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ <b>images</b> และชื่อไฟล์ตรงกับโค้ด (รวมถึงตัวพิมพ์เล็ก/ใหญ่ และช่องว่าง)
             </div>
           </div>
           <div class="details">
@@ -328,43 +328,51 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ รายชื่อน้ำหอม (แก้ชื่อ/คำอธิบาย/รูปได้ตรงนี้)
-  // รูปใช้ลิงก์ Google Drive แบบ uc?id=FILE_ID (ต้องตั้งแชร์เป็น “Anyone with the link”)
+  // ✅ รายชื่อ + ไฟล์รูป “ตรงตามชื่อไฟล์ในโฟลเดอร์ images” (ตามรูปของคุณ)
+  // โครงสร้างไฟล์ต้องเป็น:
+  // /index.html
+  // /images/Blossom Princess.jpg
+  // /images/Coco Elegante.jpg
+  // /images/Coco Mademoiselle.jpg
+  // /images/Justin.jpg
+  // /images/Melons Jardin.jpg
+  // /images/Noir Seduce.jpg
+  // /images/Scarlet Seduce.jpg
   const perfumes = [
     {
       name: "Blossom Princess",
       desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน",
-      img: "https://drive.google.com/uc?id=1jnkUoCwUpxCgNrblZl2Aswec96cwf_0j"
+      img: "images/Blossom%20Princess.jpg"
     },
     {
       name: "Coco Elegante",
       desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่",
-      img: "https://drive.google.com/uc?id=1H0j31zhnGmj0jWpaHc2re94HoHRgLkpO"
+      img: "images/Coco%20Elegante.jpg"
     },
     {
-      name: "Scarlet Sea Dew",
-      desc: "หวานสดชื่น มีเสน่ห์ โทนฟลอรัลนุ่ม ๆ กับความฉ่ำคลีนแบบทะเล",
-      img: "https://drive.google.com/uc?id=1Mpy-hAnDZWuhCw9u_HnTaRysjLDsRbbe"
-    },
-    {
-      name: "Fresh Meadow",
-      desc: "กลิ่นสะอาด สดใส ธรรมชาติ เหมือนสายลมทุ่งหญ้า เหมาะสายคลีน",
-      img: "https://drive.google.com/uc?id=1gEE1zm6_SsyGkXgCz8ywtxs7FdsLxwaD"
-    },
-    {
-      name: "Nurture Dew",
-      desc: "นุ่ม อบอุ่น ผ่อนคลาย โทนมัสก์–แป้งสะอาด สุภาพ ใช้ได้ทุกโอกาส",
-      img: "https://drive.google.com/uc?id=1NPZtwewMvCPDEs6XuKb3FYt4ZE0cJPgE"
-    },
-    {
-      name: "Hero Sport",
-      desc: "สดชื่น สปอร์ต เท่ พลังงานดี เหมาะผู้ชายหรือยูนิเซ็กซ์",
-      img: "https://drive.google.com/uc?id=1BcNpMR67BwTzzn1Fcd0NeueqE51s4aby"
+      name: "Coco Mademoiselle",
+      desc: "หรูคลาสสิก ซิตรัส–วานิลลา–แพทชูลี่ หวานนุ่มแต่มีเสน่ห์แบบผู้ดี",
+      img: "images/Coco%20Mademoiselle.jpg"
     },
     {
       name: "Justin",
       desc: "ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ",
-      img: "https://drive.google.com/uc?id=1bFrUmRGQ2fB_LGSiB1eGildpj9Rmz8Jn"
+      img: "images/Justin.jpg"
+    },
+    {
+      name: "Melons Jardin",
+      desc: "หวานฉ่ำ สดชื่น โทนผลไม้–ดอกไม้ นุ่มละมุน ใส่แล้วดูแพง",
+      img: "images/Melons%20Jardin.jpg"
+    },
+    {
+      name: "Noir Seduce",
+      desc: "ลึกลับ เซ็กซี่ หรูเข้ม โทนอำพัน–ไม้–มัสก์ กลิ่นน่าค้นหา",
+      img: "images/Noir%20Seduce.jpg"
+    },
+    {
+      name: "Scarlet Seduce",
+      desc: "หวานเย้ายวน เฟมินีน โทนฟลอรัลนุ่ม ๆ ผสมความหรูแบบโรแมนติก",
+      img: "images/Scarlet%20Seduce.jpg"
     }
   ];
 
@@ -411,7 +419,7 @@
     imgHint.classList.remove("show");
     pImg.alt = selected.name;
 
-    // load image
+    // load image (local)
     pImg.src = selected.img;
 
     // hide order box until add-to-cart
@@ -469,9 +477,6 @@ ${tel}`;
   });
 
   renderMenu();
-
-  // Optional: preselect first item
-  // selectProduct(0);
 </script>
 </body>
 </html>
