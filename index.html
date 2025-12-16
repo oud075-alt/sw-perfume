@@ -44,8 +44,18 @@
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 6px 14px rgba(255,127,176,.35);
     }
-    .wrap{ max-width:1100px; margin: 0 auto; padding: 18px 16px 40px; }
-    .layout{ display:grid; grid-template-columns: 280px 1fr; gap:16px; align-items:start; }
+    .wrap{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:16px;
+      align-items:start;
+    }
 
     .sidebar{
       background: var(--panel);
@@ -62,28 +72,44 @@
       border-bottom: 1px solid var(--line);
       background: linear-gradient(180deg, #fff, rgba(247,199,217,.25));
     }
-    .menu{ padding:10px; display:flex; flex-direction:column; gap:8px; }
+    .menu{
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
     .item{
-      text-align:left; width:100%;
+      text-align:left;
+      width:100%;
       border: 1px solid rgba(242,201,214,.8);
       background:#fff;
       border-radius:16px;
       padding:12px 12px;
       cursor:pointer;
       transition: transform .08s ease, background .12s ease, border-color .12s ease;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
       font-size:16px;
     }
     .item:hover{ transform: translateY(-1px); border-color: rgba(255,127,176,.55); }
-    .item.active{ background: rgba(255,127,176,.10); border-color: rgba(255,127,176,.55); }
+    .item.active{
+      background: rgba(255,127,176,.10);
+      border-color: rgba(255,127,176,.55);
+    }
     .pill{
-      font-size:12px; color: var(--muted);
+      font-size:12px;
+      color: var(--muted);
       background: rgba(247,199,217,.35);
       border: 1px solid rgba(242,201,214,.8);
-      padding:4px 8px; border-radius:999px; white-space:nowrap;
+      padding:4px 8px;
+      border-radius:999px;
+      white-space:nowrap;
     }
 
     .main{ min-height: 70vh; display:flex; flex-direction:column; gap:16px; }
+
     .card{
       background: var(--panel);
       border: 1px solid var(--line);
@@ -91,33 +117,66 @@
       box-shadow: var(--shadow);
       padding:18px;
     }
-    .hero h1{ margin: 0 0 6px; font-size: 26px; }
-    .hero p{ margin: 0; color: var(--muted); line-height:1.5; }
+    .hero h1{
+      margin: 0 0 6px;
+      font-size: 26px;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      line-height:1.5;
+    }
 
-    .product{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:start; }
+    .product{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
     .pic{
-      border-radius: 18px; overflow:hidden;
+      border-radius: 18px;
+      overflow:hidden;
       border: 1px solid rgba(242,201,214,.8);
-      background: #fff; min-height: 300px;
-      display:flex; align-items:center; justify-content:center;
+      background: #fff;
+      min-height: 300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       position:relative;
     }
-    .pic img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .pic img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
     .imgHint{
-      position:absolute; inset:auto 12px 12px 12px;
+      position:absolute;
+      inset:auto 12px 12px 12px;
       background: rgba(255,255,255,.9);
       border: 1px solid rgba(242,201,214,.9);
       border-radius: 14px;
       padding:10px 12px;
-      font-size:12px; color: var(--muted);
+      font-size:12px;
+      color: var(--muted);
       display:none;
     }
     .imgHint.show{ display:block; }
 
-    .details h2{ margin:0 0 8px; font-size:22px; }
-    .details p{ margin:0 0 12px; color: var(--muted); line-height:1.55; }
+    .details h2{
+      margin:0 0 8px;
+      font-size:22px;
+    }
+    .details p{
+      margin:0 0 12px;
+      color: var(--muted);
+      line-height:1.55;
+    }
     .priceRow{
-      display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
       padding:12px 12px;
       border: 1px dashed rgba(255,127,176,.45);
       background: rgba(255,127,176,.08);
@@ -125,9 +184,14 @@
       margin-top: 6px;
     }
     .priceRow .label{ color: var(--muted); font-size:14px; }
-    .priceRow .price{ font-weight:900; font-size:22px; color: #c2185b; }
+    .priceRow .price{
+      font-weight:900;
+      font-size:22px;
+      color: #c2185b;
+    }
     .addBtn{
-      width:100%; margin-top:12px;
+      width:100%;
+      margin-top:12px;
       border:none;
       background: linear-gradient(135deg, var(--accent), #ff5aa0);
       color:#fff;
@@ -142,8 +206,10 @@
     .order{ display:none; }
     .order.show{ display:block; }
 
-    .order h3{ margin:0 0 10px; font-size:18px; }
-
+    .order h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
     .field{ margin-top:10px; }
     .field label{
       display:block;
@@ -160,7 +226,6 @@
       font-size:16px;
     }
     textarea{ min-height: 90px; resize: vertical; }
-
     .confirmBtn{
       width:100%;
       margin-top:12px;
@@ -180,37 +245,27 @@
       line-height:1.4;
     }
 
-    /* QR card */
     .qrBox{ display:none; }
     .qrBox.show{ display:block; }
     .qrWrap{
       display:grid;
       grid-template-columns: 260px 1fr;
       gap:14px;
-      align-items:center;
+      align-items:start;
     }
-    .qrImg{
-      width:260px; height:260px;
+    .qrPic{
       border-radius: 18px;
-      border: 1px solid rgba(242,201,214,.9);
-      background:#fff;
-      display:flex; align-items:center; justify-content:center;
       overflow:hidden;
+      border: 1px solid rgba(242,201,214,.8);
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:260px;
     }
-    .qrImg img{ width:100%; height:100%; object-fit:contain; }
-    .openLineBtn{
-      width:100%;
-      border:none;
-      background: linear-gradient(135deg, #06c755, #00b24c);
-      color:#fff;
-      padding:14px;
-      border-radius: 16px;
-      cursor:pointer;
-      font-weight:800;
-      font-size:16px;
-      margin-top:10px;
-    }
-    .small{ font-size:12px; color: var(--muted); line-height:1.5; }
+    .qrPic img{ width:100%; height:100%; object-fit:contain; display:block; }
+    .qrTitle{ margin:0 0 8px; font-size:20px; }
+    .qrText{ margin:0; color:var(--muted); line-height:1.6; white-space:pre-line; }
 
     @media (max-width: 880px){
       .layout{ grid-template-columns: 1fr; }
@@ -218,7 +273,7 @@
       .product{ grid-template-columns: 1fr; }
       .pic{ min-height: 240px; }
       .qrWrap{ grid-template-columns: 1fr; }
-      .qrImg{ width:100%; height:auto; aspect-ratio:1/1; }
+      .qrPic{ min-height:220px; }
     }
   </style>
 </head>
@@ -249,7 +304,7 @@
           <div class="pic">
             <img id="pImg" alt="ภาพน้ำหอม" />
             <div class="imgHint" id="imgHint">
-              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ <b>images</b> และชื่อไฟล์ตรงกับโค้ด (รวมถึงตัวพิมพ์เล็ก/ใหญ่ และช่องว่าง)
+              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าชื่อไฟล์ในโฟลเดอร์ images ตรงกับในโค้ดหรือไม่
             </div>
           </div>
           <div class="details">
@@ -269,13 +324,12 @@
         </div>
       </div>
 
-      <!-- ✅ ปรับใหม่: มีช่อง "ชื่อ" แยก + บังคับกรอกครบ -->
       <div class="card order" id="orderBox">
         <h3>กรอกข้อมูลจัดส่ง</h3>
 
         <div class="field">
           <label for="custName">ชื่อ</label>
-          <input id="custName" type="text" placeholder="ชื่อผู้รับสินค้า" required />
+          <input id="custName" type="text" placeholder="ชื่อ-นามสกุล" required />
         </div>
 
         <div class="field">
@@ -291,32 +345,24 @@
         <button class="confirmBtn" id="confirmBtn">ยืนยันคำสั่งซื้อ</button>
 
         <div class="hint">
-          ต้องกรอก “ชื่อ / ที่อยู่ / เบอร์โทร” ให้ครบก่อน จึงจะไปหน้า QR LINE เพื่อสแกนส่งคำสั่งซื้อ
+          เมื่อกดยืนยัน จะขึ้น “หน้า QR LINE” ให้ลูกค้าสแกนเพื่อส่งรายละเอียดคำสั่งซื้อเข้าไลน์
         </div>
       </div>
 
-      <!-- ✅ หน้า QR LINE (ในเพจเดียวกัน) -->
       <div class="card qrBox" id="qrBox">
-        <h3>สแกน QR เพื่อส่งเข้่า LINE</h3>
         <div class="qrWrap">
-          <div class="qrImg">
+          <div class="qrPic">
             <img id="qrImg" alt="QR LINE" />
           </div>
           <div>
-            <div class="small">
-              1) เปิด LINE บนมือถือ<br>
-              2) ไปที่ “สแกน QR”<br>
-              3) สแกนโค้ดนี้ เพื่อเปิดหน้าส่งข้อความสรุปคำสั่งซื้อ<br><br>
-              * ถ้าใช้มือถืออยู่แล้ว กดปุ่ม “เปิด LINE” ได้เลย
-            </div>
-            <button class="openLineBtn" id="openLineBtn">เปิด LINE</button>
-            <div class="small" style="margin-top:8px;">
-              ถ้าเปิดไม่ได้ ให้สแกนด้วยกล้อง/สแกน QR ใน LINE
+            <h3 class="qrTitle">สแกน QR เพื่อส่งเข้า LINE</h3>
+            <p class="qrText" id="qrText"></p>
+            <div class="hint" style="margin-top:12px;">
+              ถ้า QR ไม่ขึ้น ให้ตรวจสอบว่าอัปโหลดไฟล์ไว้ที่ <b>images/Qr_Code_Line.png</b> แล้ว
             </div>
           </div>
         </div>
       </div>
-
     </main>
   </div>
 </div>
@@ -324,18 +370,50 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ รายชื่อ + ไฟล์รูป (ตามชื่อไฟล์ในโฟลเดอร์ images)
+  // ✅ จุดเรียก QR CODE (ไฟล์ต้องอยู่ในโฟลเดอร์ images)
+  // ชื่อไฟล์ตามที่คุณสั่ง: Qr_Code_Line
+  // ถ้าไฟล์จริงเป็น .jpg ให้เปลี่ยนเป็น "images/Qr_Code_Line.jpg"
+  const QR_SRC = "images/Qr_Code_Line.png";
+
+  // ✅ รายชื่อน้ำหอม + รูป (ให้ตรงกับชื่อไฟล์ใน repo)
   const perfumes = [
-    { name: "Blossom Princess",   desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img: "images/Blossom%20Princess.jpg" },
-    { name: "Coco Elegante",      desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img: "images/Coco%20Elegante.jpg" },
-    { name: "Coco Mademoiselle",  desc: "หรูคลาสสิก ซิตรัส–วานิลลา–แพทชูลี่ หวานนุ่มแต่มีเสน่ห์แบบผู้ดี", img: "images/Coco%20Mademoiselle.jpg" },
-    { name: "Justin",             desc: "ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ", img: "images/Justin.jpg" },
-    { name: "Melons Jardin",      desc: "หวานฉ่ำ สดชื่น โทนผลไม้–ดอกไม้ นุ่มละมุน ใส่แล้วดูแพง", img: "images/Melons%20Jardin.jpg" },
-    { name: "Noir Seduce",        desc: "ลึกลับ เซ็กซี่ หรูเข้ม โทนอำพัน–ไม้–มัสก์ กลิ่นน่าค้นหา", img: "images/Noir%20Seduce.jpg" },
-    { name: "Scarlet Seduce",     desc: "หวานเย้ายวน เฟมินีน โทนฟลอรัลนุ่ม ๆ ผสมความหรูแบบโรแมนติก", img: "images/Scarlet%20Seduce.jpg" }
+    {
+      name: "Blossom Princess",
+      desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน",
+      img: "images/Blossom Princess.jpg"
+    },
+    {
+      name: "Coco Elegante",
+      desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่",
+      img: "images/Coco Elegante.jpg"
+    },
+    {
+      name: "Coco Mademoiselle",
+      desc: "หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง",
+      img: "images/Coco Mademoiselle.jpg"
+    },
+    {
+      name: "Justin",
+      desc: "ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ",
+      img: "images/Justin.jpg"
+    },
+    {
+      name: "Melons Jardin",
+      desc: "ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด",
+      img: "images/Melons Jardin.jpg"
+    },
+    {
+      name: "Noir Seduce",
+      desc: "หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ",
+      img: "images/Noir Seduce.jpg"
+    },
+    {
+      name: "Scarlet Seduce",
+      desc: "หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ",
+      img: "images/Scarlet Seduce.jpg"
+    }
   ];
 
-  // ---- UI wiring ----
   const menuEl = document.getElementById("menu");
   const pImg = document.getElementById("pImg");
   const imgHint = document.getElementById("imgHint");
@@ -347,18 +425,15 @@
   const orderBox = document.getElementById("orderBox");
   const confirmBtn = document.getElementById("confirmBtn");
 
-  // ✅ ฟิลด์ใหม่: ชื่อ
   const custName = document.getElementById("custName");
   const custAddr = document.getElementById("custAddr");
   const custTel  = document.getElementById("custTel");
 
-  // ✅ QR section
   const qrBox = document.getElementById("qrBox");
   const qrImg = document.getElementById("qrImg");
-  const openLineBtn = document.getElementById("openLineBtn");
+  const qrText = document.getElementById("qrText");
 
   let selected = null;
-  let lastLineUrl = "";
 
   function renderMenu(){
     menuEl.innerHTML = "";
@@ -375,6 +450,14 @@
     [...menuEl.children].forEach((el, i) => el.classList.toggle("active", i === idx));
   }
 
+  function resetFormsAndQr(){
+    orderBox.classList.remove("show");
+    qrBox.classList.remove("show");
+    custName.value = "";
+    custAddr.value = "";
+    custTel.value  = "";
+  }
+
   function selectProduct(idx){
     selected = perfumes[idx];
     setActive(idx);
@@ -387,14 +470,9 @@
     pImg.alt = selected.name;
     pImg.src = selected.img;
 
-    // reset forms + hide sections
-    orderBox.classList.remove("show");
-    qrBox.classList.remove("show");
-    custName.value = "";
-    custAddr.value = "";
-    custTel.value  = "";
-
     addBtn.disabled = false;
+    resetFormsAndQr();
+
     document.getElementById("productCard").scrollIntoView({behavior:"smooth", block:"start"});
   }
 
@@ -407,69 +485,58 @@
     orderBox.scrollIntoView({behavior:"smooth", block:"start"});
   });
 
-  function isValidThaiPhone(tel){
-    const t = tel.replace(/\s|-/g,'').trim();
-    // ง่าย ๆ: อย่างน้อย 9-10 ตัวเลข
-    return /^\d{9,10}$/.test(t);
-  }
-
-  confirmBtn.addEventListener("click", () => {
+  function validateRequired(){
     if(!selected){
       alert("กรุณาเลือกน้ำหอมก่อน");
-      return;
+      return false;
     }
-
     const name = (custName.value || "").trim();
     const addr = (custAddr.value || "").trim();
     const tel  = (custTel.value  || "").trim();
 
-    // ✅ บังคับกรอกครบทุกช่อง
     if(name.length < 2){
-      alert("กรุณากรอกชื่อให้ครบถ้วน");
+      alert("กรุณากรอกชื่อให้ถูกต้อง");
       custName.focus();
-      return;
+      return false;
     }
     if(addr.length < 8){
       alert("กรุณากรอกที่อยู่ให้ครบถ้วน");
       custAddr.focus();
-      return;
+      return false;
     }
-    if(!isValidThaiPhone(tel)){
-      alert("กรุณากรอกเบอร์โทรให้ถูกต้อง (ตัวเลข 9–10 หลัก)");
+    if(tel.length < 8){
+      alert("กรุณากรอกเบอร์โทรให้ถูกต้อง");
       custTel.focus();
-      return;
+      return false;
     }
+    return true;
+  }
 
+  confirmBtn.addEventListener("click", () => {
+    if(!validateRequired()) return;
+
+    const name = custName.value.trim();
+    const addr = custAddr.value.trim();
+    const tel  = custTel.value.trim();
+
+    // สรุปข้อความให้ลูกค้าส่งเข้า LINE หลังสแกน QR
     const message =
 `🛍️ คำสั่งซื้อ SW Perfume
 กลิ่น: ${selected.name}
 ราคา: ${PRICE_THB} บาท
 
-👤 ชื่อผู้รับ:
-${name}
-
-📦 ที่อยู่จัดส่ง:
+👤 ชื่อ: ${name}
+📦 ที่อยู่:
 ${addr}
 
-📞 เบอร์โทร:
-${tel}`;
+📞 เบอร์โทร: ${tel}`;
 
-    // ✅ สร้างลิงก์ LINE message
-    lastLineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(message);
+    qrImg.src = QR_SRC;
+    qrText.textContent =
+      "ให้ลูกค้าสแกน QR นี้ แล้ววางข้อความด้านล่างส่งเข้า LINE:\n\n" + message;
 
-    // ✅ แสดง QR LINE ให้สแกน
-    // ใช้บริการสร้าง QR แบบรูปภาพ (ไม่ต้องลงไลบรารีเพิ่ม)
-    const qrApi = "https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=" + encodeURIComponent(lastLineUrl);
-    qrImg.src = qrApi;
-
-    // โชว์หน้า QR (ในหน้าเดิม)
     qrBox.classList.add("show");
     qrBox.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
-  openLineBtn.addEventListener("click", () => {
-    if(!lastLineUrl) return;
-    window.open(lastLineUrl, "_blank");
   });
 
   renderMenu();
