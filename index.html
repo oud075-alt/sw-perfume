@@ -49,14 +49,12 @@
       margin: 0 auto;
       padding: 18px 16px 40px;
     }
-
     .layout{
       display:grid;
       grid-template-columns: 280px 1fr;
       gap:16px;
       align-items:start;
     }
-
     .sidebar{
       background: var(--panel);
       border: 1px solid var(--line);
@@ -117,15 +115,8 @@
       box-shadow: var(--shadow);
       padding:18px;
     }
-    .hero h1{
-      margin: 0 0 6px;
-      font-size: 26px;
-    }
-    .hero p{
-      margin: 0;
-      color: var(--muted);
-      line-height:1.5;
-    }
+    .hero h1{ margin: 0 0 6px; font-size: 26px; }
+    .hero p{ margin: 0; color: var(--muted); line-height:1.5; }
 
     .product{
       display:grid;
@@ -163,15 +154,9 @@
     }
     .imgHint.show{ display:block; }
 
-    .details h2{
-      margin:0 0 8px;
-      font-size:22px;
-    }
-    .details p{
-      margin:0 0 12px;
-      color: var(--muted);
-      line-height:1.55;
-    }
+    .details h2{ margin:0 0 8px; font-size:22px; }
+    .details p{ margin:0 0 12px; color: var(--muted); line-height:1.55; }
+
     .priceRow{
       display:flex;
       align-items:baseline;
@@ -206,10 +191,7 @@
     .order{ display:none; }
     .order.show{ display:block; }
 
-    .order h3{
-      margin:0 0 10px;
-      font-size:18px;
-    }
+    .order h3{ margin:0 0 10px; font-size:18px; }
     .field{ margin-top:10px; }
     .field label{
       display:block;
@@ -226,6 +208,7 @@
       font-size:16px;
     }
     textarea{ min-height: 90px; resize: vertical; }
+
     .confirmBtn{
       width:100%;
       margin-top:12px;
@@ -280,10 +263,9 @@
           <div class="pic">
             <img id="pImg" alt="ภาพน้ำหอม" />
             <div class="imgHint" id="imgHint">
-              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าชื่อไฟล์ในโฟลเดอร์ images ตรงกับในโค้ดหรือไม่
+              โหลดรูปไม่สำเร็จ — ตรวจชื่อไฟล์ในโฟลเดอร์ images ให้ตรงกับในโค้ด
             </div>
           </div>
-
           <div class="details">
             <h2 id="pName">เลือกน้ำหอมจากเมนูด้านซ้าย</h2>
             <p id="pDesc">เมื่อเลือกแล้ว จะแสดงรูป + รายละเอียดกลิ่นที่นี่</p>
@@ -319,10 +301,10 @@
           <input id="custTel" type="tel" placeholder="เช่น 08x-xxx-xxxx" />
         </div>
 
-        <button class="confirmBtn" id="confirmBtn">ยืนยันคำสั่งซื้อ</button>
+        <button class="confirmBtn" id="confirmBtn">ยืนยันคำสั่งซื้อ (เปิด LINE)</button>
 
         <div class="hint">
-          กดปุ่มแล้วจะ “เปิด LINE พร้อมข้อความ” ให้ลูกค้ากดส่งครั้งเดียว
+          กดปุ่มนี้แล้วจะเปิด LINE ร้านอัตโนมัติ พร้อมข้อความสรุปให้ “กดส่งครั้งเดียว”
         </div>
       </div>
     </main>
@@ -332,46 +314,21 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ รายชื่อน้ำหอม + รูป (ให้ตรงกับชื่อไฟล์ใน repo /images)
+  // ✅ LINE ร้าน (ของคุณ)
+  const LINE_OA_ID = "@657myfpn";
+  const LINE_ADD_FRIEND_URL = "https://line.me/R/ti/p/@657myfpn";
+
+  // ✅ รายชื่อน้ำหอม + รูป (แก้แค่ชื่อไฟล์ใน images ให้ตรง)
   const perfumes = [
-    {
-      name: "Blossom Princess",
-      desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน",
-      img: "images/Blossom Princess.jpg"
-    },
-    {
-      name: "Coco Elegante",
-      desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่",
-      img: "images/Coco Elegante.jpg"
-    },
-    {
-      name: "Coco Mademoiselle",
-      desc: "หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง",
-      img: "images/Coco Mademoiselle.jpg"
-    },
-    {
-      name: "Justin",
-      desc: "ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ",
-      img: "images/Justin.jpg"
-    },
-    {
-      name: "Melons Jardin",
-      desc: "ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด",
-      img: "images/Melons Jardin.jpg"
-    },
-    {
-      name: "Noir Seduce",
-      desc: "หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ",
-      img: "images/Noir Seduce.jpg"
-    },
-    {
-      name: "Scarlet Seduce",
-      desc: "หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ",
-      img: "images/Scarlet Seduce.jpg"
-    }
+    { name:"Blossom Princess", desc:"หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img:"images/Blossom Princess.jpg" },
+    { name:"Coco Elegante", desc:"ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img:"images/Coco Elegante.jpg" },
+    { name:"Coco Mademoiselle", desc:"หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง", img:"images/Coco Mademoiselle.jpg" },
+    { name:"Justin", desc:"ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ", img:"images/Justin.jpg" },
+    { name:"Melons Jardin", desc:"ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด", img:"images/Melons Jardin.jpg" },
+    { name:"Noir Seduce", desc:"หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ", img:"images/Noir Seduce.jpg" },
+    { name:"Scarlet Seduce", desc:"หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ", img:"images/Scarlet Seduce.jpg" }
   ];
 
-  // ---- UI wiring ----
   const menuEl = document.getElementById("menu");
   const pImg = document.getElementById("pImg");
   const imgHint = document.getElementById("imgHint");
@@ -404,13 +361,6 @@
     [...menuEl.children].forEach((el, i) => el.classList.toggle("active", i === idx));
   }
 
-  function resetForms(){
-    orderBox.classList.remove("show");
-    custName.value = "";
-    custAddr.value = "";
-    custTel.value  = "";
-  }
-
   function selectProduct(idx){
     selected = perfumes[idx];
     setActive(idx);
@@ -424,7 +374,11 @@
     pImg.src = selected.img;
 
     addBtn.disabled = false;
-    resetForms();
+
+    orderBox.classList.remove("show");
+    custName.value = "";
+    custAddr.value = "";
+    custTel.value  = "";
 
     document.getElementById("productCard").scrollIntoView({behavior:"smooth", block:"start"});
   }
@@ -448,23 +402,19 @@
 
     if(name.length < 2){
       alert("กรุณากรอกชื่อให้ถูกต้อง");
-      custName.focus();
-      return false;
+      custName.focus(); return false;
     }
     if(addr.length < 8){
       alert("กรุณากรอกที่อยู่ให้ครบถ้วน");
-      custAddr.focus();
-      return false;
+      custAddr.focus(); return false;
     }
     if(tel.length < 8){
       alert("กรุณากรอกเบอร์โทรให้ถูกต้อง");
-      custTel.focus();
-      return false;
+      custTel.focus(); return false;
     }
     return true;
   }
 
-  // ✅ กดปุ่ม → เปิด LINE → ข้อความขึ้นมาแล้ว → กดส่งครั้งเดียว
   confirmBtn.addEventListener("click", () => {
     if(!validateRequired()) return;
 
@@ -483,8 +433,21 @@ ${addr}
 
 📞 เบอร์โทร: ${tel}`;
 
-    const lineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(message);
-    window.open(lineUrl, "_blank");
+    // ✅ เปิดแชท LINE ร้าน + ใส่ข้อความให้พร้อมกดส่ง
+    const oaMsgUrl =
+      "https://line.me/R/oaMessage/" + encodeURIComponent(LINE_OA_ID) + "/?" + encodeURIComponent(message);
+
+    // พยายามเปิด LINE
+    const w = window.open(oaMsgUrl, "_blank");
+    if(!w) window.location.href = oaMsgUrl;
+
+    // ✅ เผื่อบางเครื่องเปิด oaMessage ไม่ได้ → ส่งไปหน้าร้านเพื่อแอดก่อน
+    setTimeout(() => {
+      // ถ้าเปิด LINE ไม่สำเร็จ อย่างน้อยพาไปหน้าร้าน
+      // (ผู้ใช้บางคนต้องแอดก่อนถึงส่งได้)
+      // ถ้าคุณไม่อยากให้เด้ง fallback ให้ลบ setTimeout นี้ทิ้งได้
+      // window.location.href = LINE_ADD_FRIEND_URL;
+    }, 1200);
   });
 
   renderMenu();
