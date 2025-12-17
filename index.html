@@ -226,7 +226,6 @@
       font-size:16px;
     }
     textarea{ min-height: 90px; resize: vertical; }
-
     .confirmBtn{
       width:100%;
       margin-top:12px;
@@ -246,36 +245,11 @@
       line-height:1.4;
     }
 
-    .qrBox{ display:none; }
-    .qrBox.show{ display:block; }
-    .qrWrap{
-      display:grid;
-      grid-template-columns: 260px 1fr;
-      gap:14px;
-      align-items:start;
-    }
-    .qrPic{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(242,201,214,.8);
-      background:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:260px;
-      padding:10px;
-    }
-    .qrPic img{ width:100%; height:100%; object-fit:contain; display:block; }
-    .qrTitle{ margin:0 0 8px; font-size:20px; }
-    .qrText{ margin:0; color:var(--muted); line-height:1.6; white-space:pre-line; }
-
     @media (max-width: 880px){
       .layout{ grid-template-columns: 1fr; }
       .sidebar{ position:relative; top:0; }
       .product{ grid-template-columns: 1fr; }
       .pic{ min-height: 240px; }
-      .qrWrap{ grid-template-columns: 1fr; }
-      .qrPic{ min-height:220px; }
     }
   </style>
 </head>
@@ -306,9 +280,10 @@
           <div class="pic">
             <img id="pImg" alt="ภาพน้ำหอม" />
             <div class="imgHint" id="imgHint">
-              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ <b>images</b> และชื่อไฟล์ตรงกับในโค้ด
+              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าชื่อไฟล์ในโฟลเดอร์ images ตรงกับในโค้ดหรือไม่
             </div>
           </div>
+
           <div class="details">
             <h2 id="pName">เลือกน้ำหอมจากเมนูด้านซ้าย</h2>
             <p id="pDesc">เมื่อเลือกแล้ว จะแสดงรูป + รายละเอียดกลิ่นที่นี่</p>
@@ -347,22 +322,7 @@
         <button class="confirmBtn" id="confirmBtn">ยืนยันคำสั่งซื้อ</button>
 
         <div class="hint">
-          เมื่อกดยืนยัน จะขึ้น “หน้า QR LINE” ให้ลูกค้าสแกนเพื่อทัก/ส่งข้อความเข้าไลน์
-        </div>
-      </div>
-
-      <div class="card qrBox" id="qrBox">
-        <div class="qrWrap">
-          <div class="qrPic">
-            <img id="qrImg" alt="QR LINE" />
-          </div>
-          <div>
-            <h3 class="qrTitle">สแกน QR เพื่อทัก LINE</h3>
-            <p class="qrText" id="qrText"></p>
-            <div class="hint" style="margin-top:12px;">
-              QR ไฟล์ต้องอยู่ที่ <b>images/Qr_Code_Line.png</b>
-            </div>
-          </div>
+          กดปุ่มแล้วจะ “เปิด LINE พร้อมข้อความ” ให้ลูกค้ากดส่งครั้งเดียว
         </div>
       </div>
     </main>
@@ -372,20 +332,46 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ จุดเรียก QR code (อยู่ในโฟลเดอร์ images)
-  const QR_SRC = "images/Qr_Code_Line.png";
-
-  // ✅ รายชื่อ + ไฟล์รูป (ต้องตรงกับชื่อไฟล์จริงใน repo)
+  // ✅ รายชื่อน้ำหอม + รูป (ให้ตรงกับชื่อไฟล์ใน repo /images)
   const perfumes = [
-    { name:"Blossom Princess",   desc:"หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img:"images/Blossom Princess.jpg" },
-    { name:"Coco Elegante",      desc:"ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img:"images/Coco Elegante.jpg" },
-    { name:"Coco Mademoiselle",  desc:"หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง", img:"images/Coco Mademoiselle.jpg" },
-    { name:"Justin",             desc:"ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ", img:"images/Justin.jpg" },
-    { name:"Melons Jardin",      desc:"ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด", img:"images/Melons Jardin.jpg" },
-    { name:"Noir Seduce",        desc:"หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ", img:"images/Noir Seduce.jpg" },
-    { name:"Scarlet Seduce",     desc:"หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ", img:"images/Scarlet Seduce.jpg" }
+    {
+      name: "Blossom Princess",
+      desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน",
+      img: "images/Blossom Princess.jpg"
+    },
+    {
+      name: "Coco Elegante",
+      desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่",
+      img: "images/Coco Elegante.jpg"
+    },
+    {
+      name: "Coco Mademoiselle",
+      desc: "หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง",
+      img: "images/Coco Mademoiselle.jpg"
+    },
+    {
+      name: "Justin",
+      desc: "ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ",
+      img: "images/Justin.jpg"
+    },
+    {
+      name: "Melons Jardin",
+      desc: "ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด",
+      img: "images/Melons Jardin.jpg"
+    },
+    {
+      name: "Noir Seduce",
+      desc: "หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ",
+      img: "images/Noir Seduce.jpg"
+    },
+    {
+      name: "Scarlet Seduce",
+      desc: "หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ",
+      img: "images/Scarlet Seduce.jpg"
+    }
   ];
 
+  // ---- UI wiring ----
   const menuEl = document.getElementById("menu");
   const pImg = document.getElementById("pImg");
   const imgHint = document.getElementById("imgHint");
@@ -400,10 +386,6 @@
   const custName = document.getElementById("custName");
   const custAddr = document.getElementById("custAddr");
   const custTel  = document.getElementById("custTel");
-
-  const qrBox = document.getElementById("qrBox");
-  const qrImg = document.getElementById("qrImg");
-  const qrText = document.getElementById("qrText");
 
   let selected = null;
 
@@ -422,9 +404,8 @@
     [...menuEl.children].forEach((el, i) => el.classList.toggle("active", i === idx));
   }
 
-  function resetFormsAndQr(){
+  function resetForms(){
     orderBox.classList.remove("show");
-    qrBox.classList.remove("show");
     custName.value = "";
     custAddr.value = "";
     custTel.value  = "";
@@ -443,7 +424,7 @@
     pImg.src = selected.img;
 
     addBtn.disabled = false;
-    resetFormsAndQr();
+    resetForms();
 
     document.getElementById("productCard").scrollIntoView({behavior:"smooth", block:"start"});
   }
@@ -453,7 +434,6 @@
   addBtn.addEventListener("click", () => {
     if(!selected) return;
     orderBox.classList.add("show");
-    qrBox.classList.remove("show");
     orderBox.scrollIntoView({behavior:"smooth", block:"start"});
   });
 
@@ -484,6 +464,7 @@
     return true;
   }
 
+  // ✅ กดปุ่ม → เปิด LINE → ข้อความขึ้นมาแล้ว → กดส่งครั้งเดียว
   confirmBtn.addEventListener("click", () => {
     if(!validateRequired()) return;
 
@@ -502,12 +483,8 @@ ${addr}
 
 📞 เบอร์โทร: ${tel}`;
 
-    qrImg.src = QR_SRC;
-    qrText.textContent =
-      "ให้ลูกค้าสแกน QR นี้ แล้วส่งข้อความสรุปด้านล่างเข้ามาใน LINE:\n\n" + message;
-
-    qrBox.classList.add("show");
-    qrBox.scrollIntoView({behavior:"smooth", block:"start"});
+    const lineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(message);
+    window.open(lineUrl, "_blank");
   });
 
   renderMenu();
