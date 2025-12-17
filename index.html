@@ -226,6 +226,7 @@
       font-size:16px;
     }
     textarea{ min-height: 90px; resize: vertical; }
+
     .confirmBtn{
       width:100%;
       margin-top:12px;
@@ -262,6 +263,7 @@
       align-items:center;
       justify-content:center;
       min-height:260px;
+      padding:10px;
     }
     .qrPic img{ width:100%; height:100%; object-fit:contain; display:block; }
     .qrTitle{ margin:0 0 8px; font-size:20px; }
@@ -304,7 +306,7 @@
           <div class="pic">
             <img id="pImg" alt="ภาพน้ำหอม" />
             <div class="imgHint" id="imgHint">
-              โหลดรูปไม่สำเร็จ — ตรวจสอบว่า <b>ชื่อไฟล์ในโฟลเดอร์ images</b> ตรงกับในโค้ดหรือไม่ (รวมถึงตัวพิมพ์ใหญ่/เล็ก)
+              โหลดรูปไม่สำเร็จ — ตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ <b>images</b> และชื่อไฟล์ตรงกับในโค้ด
             </div>
           </div>
           <div class="details">
@@ -329,23 +331,23 @@
 
         <div class="field">
           <label for="custName">ชื่อ</label>
-          <input id="custName" type="text" placeholder="ชื่อ-นามสกุล" required />
+          <input id="custName" type="text" placeholder="ชื่อ-นามสกุล" />
         </div>
 
         <div class="field">
           <label for="custAddr">ที่อยู่</label>
-          <textarea id="custAddr" placeholder="บ้านเลขที่ / ถนน / ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์" required></textarea>
+          <textarea id="custAddr" placeholder="บ้านเลขที่ / ถนน / ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์"></textarea>
         </div>
 
         <div class="field">
           <label for="custTel">เบอร์โทร</label>
-          <input id="custTel" type="tel" placeholder="เช่น 08x-xxx-xxxx" required />
+          <input id="custTel" type="tel" placeholder="เช่น 08x-xxx-xxxx" />
         </div>
 
         <button class="confirmBtn" id="confirmBtn">ยืนยันคำสั่งซื้อ</button>
 
         <div class="hint">
-          เมื่อกดยืนยัน จะขึ้น “หน้า QR LINE” ให้ลูกค้าสแกนเพื่อส่งรายละเอียดคำสั่งซื้อเข้าไลน์
+          เมื่อกดยืนยัน จะขึ้น “หน้า QR LINE” ให้ลูกค้าสแกนเพื่อทัก/ส่งข้อความเข้าไลน์
         </div>
       </div>
 
@@ -355,10 +357,10 @@
             <img id="qrImg" alt="QR LINE" />
           </div>
           <div>
-            <h3 class="qrTitle">สแกน QR เพื่อส่งเข้า LINE</h3>
+            <h3 class="qrTitle">สแกน QR เพื่อทัก LINE</h3>
             <p class="qrText" id="qrText"></p>
             <div class="hint" style="margin-top:12px;">
-              ถ้า QR ไม่ขึ้น ให้ตรวจสอบว่าอัปโหลดไฟล์ไว้ที่ <b>images/Qr_Code_Line.png</b>
+              QR ไฟล์ต้องอยู่ที่ <b>images/Qr_Code_Line.png</b>
             </div>
           </div>
         </div>
@@ -370,18 +372,18 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ QR ใน repo (ตามรูป): images/Qr_Code_Line.png
+  // ✅ จุดเรียก QR code (อยู่ในโฟลเดอร์ images)
   const QR_SRC = "images/Qr_Code_Line.png";
 
-  // ✅ รายชื่อน้ำหอม + รูป (ตรงกับชื่อไฟล์ในรูป 100%)
+  // ✅ รายชื่อ + ไฟล์รูป (ต้องตรงกับชื่อไฟล์จริงใน repo)
   const perfumes = [
-    { name: "Blossom Princess",    desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img: "images/Blossom Princess.jpg" },
-    { name: "Coco Elegante",       desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img: "images/Coco Elegante.jpg" },
-    { name: "Coco Mademoiselle",   desc: "หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง", img: "images/Coco Mademoiselle.jpg" },
-    { name: "Justin",             desc: "ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ", img: "images/Justin.jpg" },
-    { name: "Melons Jardin",      desc: "ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด", img: "images/Melons Jardin.jpg" },
-    { name: "Noir Seduce",        desc: "หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ", img: "images/Noir Seduce.jpg" },
-    { name: "Scarlet Seduce",     desc: "หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ", img: "images/Scarlet Seduce.jpg" }
+    { name:"Blossom Princess",   desc:"หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img:"images/Blossom Princess.jpg" },
+    { name:"Coco Elegante",      desc:"ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img:"images/Coco Elegante.jpg" },
+    { name:"Coco Mademoiselle",  desc:"หวานผู้ดี นุ่มละมุน มีเสน่ห์คลาสสิก ใส่แล้วดูแพง", img:"images/Coco Mademoiselle.jpg" },
+    { name:"Justin",             desc:"ทันสมัย กลิ่นยอดนิยม ใช้ได้ทุกวัน โทนสะอาดเท่ ๆ", img:"images/Justin.jpg" },
+    { name:"Melons Jardin",      desc:"ผลไม้–ฟลอรัลสดใส ฉ่ำหวานละมุน ให้ฟีลเฟรชหอมสะอาด", img:"images/Melons Jardin.jpg" },
+    { name:"Noir Seduce",        desc:"หรูเข้ม ลึกลับ เซ็กซี่นุ่มลึก เหมาะกลางคืนหรือโอกาสพิเศษ", img:"images/Noir Seduce.jpg" },
+    { name:"Scarlet Seduce",     desc:"หวานเย้ายวน มีเสน่ห์ นุ่มละมุน ฟีลเฟมินีนหรู ๆ", img:"images/Scarlet Seduce.jpg" }
   ];
 
   const menuEl = document.getElementById("menu");
@@ -502,7 +504,7 @@ ${addr}
 
     qrImg.src = QR_SRC;
     qrText.textContent =
-      "ให้ลูกค้าสแกน QR นี้ แล้ววางข้อความด้านล่างส่งเข้า LINE:\n\n" + message;
+      "ให้ลูกค้าสแกน QR นี้ แล้วส่งข้อความสรุปด้านล่างเข้ามาใน LINE:\n\n" + message;
 
     qrBox.classList.add("show");
     qrBox.scrollIntoView({behavior:"smooth", block:"start"});
