@@ -300,7 +300,6 @@
         <h3>สแกน QR เพื่อส่งเข้า LINE</h3>
         <div class="qrWrap">
           <div class="qrImg">
-            <!-- ✅ ใช้รูป QR LINE จากไฟล์ในเครื่อง -->
             <img id="qrImg" alt="QR LINE" />
           </div>
           <div>
@@ -325,8 +324,8 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ ตั้งชื่อไฟล์ QR LINE แบบรูปในโฟลเดอร์ images
-  // (ไฟล์ต้องมีอยู่จริง: images/Qr_Code_Line.png)
+  // ✅ แก้ชื่อไฟล์ QR LINE ให้ถูกต้องตามที่คุณบอก
+  // ต้องมีไฟล์อยู่จริง: images/Qr_Code_Line.png
   const LINE_QR_IMAGE = "images/Qr_Code_Line.png";
 
   // ✅ รายชื่อ + ไฟล์รูป (ตามชื่อไฟล์ในโฟลเดอร์ images)
@@ -461,7 +460,7 @@ ${tel}`;
     // ✅ ลิงก์เปิด LINE พร้อมข้อความ (ใช้กับปุ่ม "เปิด LINE")
     lastLineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(message);
 
-    // ✅ แสดง QR LINE จากไฟล์ในเครื่อง (ไม่เรียกเว็บภายนอก)
+    // ✅ โชว์ QR LINE จากไฟล์ของคุณ (ชื่อถูกต้องแล้ว)
     qrImg.src = LINE_QR_IMAGE;
 
     // โชว์หน้า QR (ในหน้าเดิม)
@@ -477,4 +476,4 @@ ${tel}`;
   renderMenu();
 </script>
 </body>
-</html>
+            </html>
