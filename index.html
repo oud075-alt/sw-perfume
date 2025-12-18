@@ -1,75 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SW Perfume</title>
 
 <style>
 body{
   margin:0;
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family: system-ui, sans-serif;
   background:#fde8f0;
-  color:#2b2b2b;
 }
 .container{
   max-width:420px;
   margin:40px auto;
   background:#fff;
-  border-radius:20px;
-  padding:24px;
+  border-radius:18px;
+  padding:20px;
   box-shadow:0 10px 30px rgba(0,0,0,.1);
   text-align:center;
 }
-h1{margin:0 0 8px}
-p{color:#666}
+h1{
+  margin:0 0 12px;
+}
+.product img{
+  width:100%;
+  border-radius:14px;
+}
+input{
+  width:100%;
+  padding:14px;
+  margin-top:16px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
 button{
   width:100%;
+  margin-top:16px;
   padding:16px;
   border:none;
   border-radius:14px;
-  background:#ff7fb0;
+  background:#ff5b8c;
   color:#fff;
   font-size:18px;
   font-weight:700;
   cursor:pointer;
 }
-.qr{
+#qrBox{
   display:none;
   margin-top:24px;
 }
-.qr img{
-  width:100%;
-  max-width:260px;
+#qrBox img{
+  width:260px;
+  max-width:100%;
 }
 .note{
   font-size:14px;
   color:#555;
-  margin-top:12px;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
   <h1>SW Perfume</h1>
-  <p>กดสั่งซื้อ → สแกน QR → ส่งเข้า LINE ร้าน</p>
 
-  <button onclick="showQR()">สั่งซื้อ</button>
+  <!-- ภาพสินค้า -->
+  <div class="product">
+    <img src="images/product.jpg" alt="สินค้า">
+  </div>
 
-  <div class="qr" id="qrBox">
+  <!-- ช่องกรอกเบอร์โทร -->
+  <input id="phone" type="tel" placeholder="กรอกเบอร์โทรศัพท์">
+
+  <!-- ปุ่ม -->
+  <button onclick="showQR()">สแกน QR LINE</button>
+
+  <!-- QR LINE -->
+  <div id="qrBox">
     <img src="images/Qr_Code_Line.png" alt="QR LINE">
     <div class="note">
-      📱 สแกน QR นี้เพื่อเข้า LINE ร้าน<br>
-      ✉️ ระบบจะพาไปหน้าแชท LINE ให้กดส่งข้อความ
+      📲 เปิด LINE แล้วสแกน QR นี้<br>
+      เพื่อแชทกับร้านค้า
     </div>
   </div>
 </div>
 
 <script>
 function showQR(){
+  const phone = document.getElementById("phone").value.trim();
+
+  if(phone.length < 8){
+    alert("กรุณากรอกเบอร์โทรให้ถูกต้อง");
+    return;
+  }
+
   document.getElementById("qrBox").style.display = "block";
 }
 </script>
+
 </body>
 </html>
