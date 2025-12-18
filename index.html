@@ -2,13 +2,13 @@
 <html lang="th">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SW Perfume</title>
   <style>
     :root{
       --bg:#fde8f0; --panel:#fff; --ink:#2b2b2b; --muted:#6b6b6b;
-      --accent:#ff7fb0; --line:#f2c9d6; --shadow:0 12px 30px rgba(0,0,0,.10);
-      --r:22px;
+      --accent:#ff7fb0; --accent2:#ffd1e1; --line:#f2c9d6;
+      --shadow:0 12px 30px rgba(0,0,0,.10); --r:22px;
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai",sans-serif;
@@ -17,7 +17,7 @@
       background:rgba(253,232,240,.75);border-bottom:1px solid rgba(242,201,214,.7)}
     .topbar{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
     .brand{font-weight:900;display:flex;gap:10px;align-items:center}
-    .dot{width:12px;height:12px;border-radius:999px;background:linear-gradient(135deg,var(--accent),#ffd1e1);
+    .dot{width:12px;height:12px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));
       box-shadow:0 6px 14px rgba(255,127,176,.35)}
     .wrap{max-width:1100px;margin:0 auto;padding:18px 16px 50px}
     .layout{display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start}
@@ -39,7 +39,6 @@
     .hero h1{margin:0 0 6px;font-size:26px}
     .hero p{margin:0;color:var(--muted);line-height:1.5}
 
-    .grid2{display:grid;grid-template-columns:1fr 1x 1fr;gap:14px;align-items:start}
     .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
     .pic{border-radius:18px;overflow:hidden;border:1px solid rgba(242,201,214,.8);background:#fff;min-height:300px}
     .pic img{width:100%;height:100%;object-fit:cover;display:block}
@@ -49,34 +48,22 @@
       padding:12px;border:1px dashed rgba(255,127,176,.45);background:rgba(255,127,176,.08);border-radius:16px}
     .price{font-weight:900;font-size:22px;color:#c2185b}
 
-    .btn{width:100%;border:none;border-radius:16px;padding:14px;cursor:pointer;font-weight:900;font-size:17px}
-    .btnPrimary{background:linear-gradient(135deg,var(--accent),#ff5aa0);color:#fff;box-shadow:0 10px 22px rgba(255,127,176,.35)}
-    .btnDark{background:#111;color:#fff}
-    .btnLight{background:#fff;border:1px solid rgba(242,201,214,.95)}
-
-    .section{display:none}
-    .section.show{display:block}
-
     .field{margin-top:10px}
     .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
     input,textarea{width:100%;padding:12px;border-radius:14px;border:1px solid rgba(242,201,214,.95);outline:none;font-size:16px}
     textarea{min-height:90px;resize:vertical}
 
-    .qrWrap{display:grid;grid-template-columns:280px 1fr;gap:14px;align-items:start}
-    .qrPic{border-radius:18px;overflow:hidden;border:1px solid rgba(242,201,214,.8);background:#fff;min-height:280px;
-      display:flex;align-items:center;justify-content:center}
-    .qrPic img{width:100%;height:100%;object-fit:contain;display:block}
-
+    .btn{width:100%;border:none;border-radius:16px;padding:14px;cursor:pointer;font-weight:900;font-size:17px}
+    .btnPrimary{background:linear-gradient(135deg,var(--accent),#ff5aa0);color:#fff;box-shadow:0 10px 22px rgba(255,127,176,.35)}
+    .btnDark{background:#111;color:#fff}
     .muted{color:var(--muted)}
     .small{font-size:12px;color:var(--muted);line-height:1.4}
-    .ok{color:#0a7a2f;font-weight:900}
 
     @media (max-width:880px){
       .layout{grid-template-columns:1fr}
       .sidebar{position:relative;top:0}
       .grid2{grid-template-columns:1fr}
       .pic{min-height:240px}
-      .qrWrap{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -85,7 +72,7 @@
 <header>
   <div class="topbar">
     <div class="brand"><span class="dot"></span> SW Perfume</div>
-    <div class="muted" style="font-size:13px;">โทนชมพูพาสเทล • ราคา 390 บาท</div>
+    <div class="muted" style="font-size:13px;">ราคา 390 บาท</div>
   </div>
 </header>
 
@@ -99,10 +86,9 @@
     <main class="main">
       <div class="card hero">
         <h1>SW Perfume</h1>
-        <p>เลือกกลิ่น → กรอกข้อมูล → ยืนยัน → สแกน “Bank Qr” โอนเงิน → กดปุ่มเปิด LINE → กดส่งครั้งเดียว</p>
+        <p>เลือกกลิ่น → กรอกข้อมูล → กด “สั่งซื้อผ่าน LINE” (ข้อความขึ้นมาแล้ว กดส่งครั้งเดียว)</p>
       </div>
 
-      <!-- PRODUCT -->
       <div class="card" id="productCard">
         <div class="grid2">
           <div class="pic"><img id="pImg" alt="ภาพน้ำหอม"></div>
@@ -118,96 +104,37 @@
               <div class="price" id="pPrice">390 บาท</div>
             </div>
 
-            <button class="btn btnPrimary" id="btnOrder" disabled>สั่งซื้อน้ำหอมนี้</button>
+            <div style="margin-top:14px;">
+              <div class="field">
+                <label for="custName">ชื่อ</label>
+                <input id="custName" placeholder="ชื่อ-นามสกุล" />
+              </div>
+              <div class="field">
+                <label for="custAddr">ที่อยู่</label>
+                <textarea id="custAddr" placeholder="บ้านเลขที่ / ถนน / ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์"></textarea>
+              </div>
+              <div class="field">
+                <label for="custTel">เบอร์โทร</label>
+                <input id="custTel" placeholder="เช่น 08x-xxx-xxxx" />
+              </div>
+
+              <button class="btn btnPrimary" id="btnLineOrder" disabled>สั่งซื้อผ่าน LINE</button>
+              <div class="small" style="margin-top:10px;">
+                *ถ้าเปิดจาก Facebook/IG แล้วไม่เด้งเข้าแอป LINE ให้กดเมนู ⋮ แล้ว “เปิดใน Chrome”*
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-
-      <!-- FORM -->
-      <div class="card section" id="formSection">
-        <h3 style="margin:0 0 10px;">กรอกข้อมูลจัดส่ง</h3>
-
-        <div class="field">
-          <label for="custName">ชื่อ</label>
-          <input id="custName" placeholder="ชื่อ-นามสกุล" />
-        </div>
-
-        <div class="field">
-          <label for="custAddr">ที่อยู่</label>
-          <textarea id="custAddr" placeholder="บ้านเลขที่ / ถนน / ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์"></textarea>
-        </div>
-
-        <div class="field">
-          <label for="custTel">เบอร์โทร</label>
-          <input id="custTel" placeholder="เช่น 08x-xxx-xxxx" />
-        </div>
-
-        <button class="btn btnDark" id="btnConfirm">ยืนยันคำสั่งซื้อ → ไปหน้าโอนเงิน</button>
-        <div class="small" style="margin-top:10px;">
-          จากนั้นให้ลูกค้าสแกน “Bank Qr” เพื่อโอน แล้วกดปุ่มเปิด LINE (ข้อความขึ้นมาแล้ว กดส่งครั้งเดียว)
-        </div>
-      </div>
-
-      <!-- PAYMENT -->
-      <div class="card section" id="paySection">
-        <div class="qrWrap">
-          <div class="qrPic">
-            <img id="bankQrImg" alt="Bank Qr">
-          </div>
-          <div>
-            <h3 style="margin:0 0 8px;">สแกน Bank Qr เพื่อโอนเงิน</h3>
-            <p class="muted" style="margin:0 0 10px;">หลังโอนเสร็จ กดปุ่มด้านล่างเพื่อ “เปิด LINE ร้าน” แล้วกดส่งครั้งเดียว</p>
-
-            <div class="card" style="padding:12px;border-radius:16px;">
-              <div style="font-weight:900;margin-bottom:6px;">สรุปออเดอร์</div>
-              <div class="muted" id="orderSummary" style="white-space:pre-line;line-height:1.5;"></div>
-            </div>
-
-            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn btnPrimary" id="btnOpenLine" style="flex:1;min-width:240px;">
-                เปิด LINE ร้าน → กดส่งครั้งเดียว
-              </button>
-              <button class="btn btnLight" id="btnSuccess" style="flex:1;min-width:240px;">
-                ฉันส่งเข้า LINE แล้ว → ไปหน้าสำเร็จ
-              </button>
-            </div>
-
-            <div class="small" style="margin-top:10px;">
-              ไฟล์รูปต้องอยู่ที่ <b>images/Bank Qr.png</b> (ชื่อไฟล์ตรงตามนี้)
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUCCESS -->
-      <div class="card section" id="successSection">
-        <h2 class="ok" style="margin:0 0 8px;">ท่านได้สั่งซื้อสำเร็จ ✅</h2>
-        <p class="muted" style="margin:0 0 10px;">รอรับสินค้าภายใน <b>5 วัน</b></p>
-
-        <div class="card" style="padding:12px;border-radius:16px;">
-          <div style="font-weight:900;margin-bottom:6px;">รายละเอียดออเดอร์</div>
-          <div class="muted" id="successSummary" style="white-space:pre-line;line-height:1.5;"></div>
-        </div>
-
-        <button class="btn btnLight" id="btnBackHome" style="margin-top:12px;">กลับไปหน้าเลือกสินค้า</button>
-      </div>
-
     </main>
   </div>
 </div>
 
 <script>
   const PRICE_THB = 390;
+  const LINE_OA_ID = "@657myfpn"; // ใส่แค่ ID
 
-  // ✅ ใช้เฉพาะ ID ของร้าน
-  const LINE_OA_ID = "@657myfpn";
-
-  // ✅ ชื่อไฟล์ภาพ QR ธนาคาร: "Bank Qr" (ตามที่คุณบอก)
-  // ต้องอยู่ในโฟลเดอร์ images
-  // แนะนำให้ใช้ .jpg ตามนี้
-  const BANK_QR_SRC = "images/Bank Qr.jpg";
-
-  // ✅ สินค้า (แก้ชื่อไฟล์รูปให้ตรงกับใน images/)
   const perfumes = [
     { name:"Blossom Princess", desc:"หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img:"images/Blossom Princess.jpg" },
     { name:"Coco Elegante", desc:"ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาว", img:"images/Coco Elegante.jpg" },
@@ -218,38 +145,18 @@
     { name:"Scarlet Seduce", desc:"หวานเย้ายวน มีเสน่ห์ นุ่มละมุน", img:"images/Scarlet Seduce.jpg" }
   ];
 
-  // UI
   const menuEl = document.getElementById("menu");
   const pImg = document.getElementById("pImg");
   const pName = document.getElementById("pName");
   const pDesc = document.getElementById("pDesc");
   const pPrice = document.getElementById("pPrice");
-  const btnOrder = document.getElementById("btnOrder");
-
-  const formSection = document.getElementById("formSection");
-  const paySection = document.getElementById("paySection");
-  const successSection = document.getElementById("successSection");
 
   const custName = document.getElementById("custName");
   const custAddr = document.getElementById("custAddr");
   const custTel  = document.getElementById("custTel");
-
-  const btnConfirm = document.getElementById("btnConfirm");
-  const bankQrImg = document.getElementById("bankQrImg");
-  const orderSummary = document.getElementById("orderSummary");
-  const successSummary = document.getElementById("successSummary");
-
-  const btnOpenLine = document.getElementById("btnOpenLine");
-  const btnSuccess = document.getElementById("btnSuccess");
-  const btnBackHome = document.getElementById("btnBackHome");
+  const btnLineOrder = document.getElementById("btnLineOrder");
 
   let selected = null;
-  let currentOrder = null;
-
-  function showSection(el){
-    [formSection, paySection, successSection].forEach(x => x.classList.remove("show"));
-    if(el) el.classList.add("show");
-  }
 
   function renderMenu(){
     menuEl.innerHTML = "";
@@ -275,117 +182,53 @@
     pDesc.textContent = selected.desc;
     pPrice.textContent = `${PRICE_THB} บาท`;
 
-    btnOrder.disabled = false;
-    showSection(null);
+    btnLineOrder.disabled = false;
     document.getElementById("productCard").scrollIntoView({behavior:"smooth", block:"start"});
   }
 
-  btnOrder.addEventListener("click", () => {
-    if(!selected) return;
-    custName.value = "";
-    custAddr.value = "";
-    custTel.value  = "";
-    showSection(formSection);
-    formSection.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
   function validate(){
+    if(!selected){ alert("กรุณาเลือกน้ำหอมก่อน"); return false; }
     const name = (custName.value||"").trim();
     const addr = (custAddr.value||"").trim();
     const tel  = (custTel.value||"").trim();
-    if(!selected){ alert("กรุณาเลือกน้ำหอมก่อน"); return false; }
     if(name.length < 2){ alert("กรุณากรอกชื่อให้ถูกต้อง"); custName.focus(); return false; }
     if(addr.length < 8){ alert("กรุณากรอกที่อยู่ให้ครบถ้วน"); custAddr.focus(); return false; }
     if(tel.length < 8){ alert("กรุณากรอกเบอร์โทรให้ถูกต้อง"); custTel.focus(); return false; }
     return true;
   }
 
-  function buildOrder(){
-    const now = new Date();
-    const orderId =
-      "SW" + now.getFullYear().toString().slice(2) +
-      String(now.getMonth()+1).padStart(2,"0") +
-      String(now.getDate()).padStart(2,"0") + "-" +
-      String(now.getHours()).padStart(2,"0") +
-      String(now.getMinutes()).padStart(2,"0") +
-      String(now.getSeconds()).padStart(2,"0");
-
-    return {
-      orderId,
-      product: selected.name,
-      price: PRICE_THB,
-      name: custName.value.trim(),
-      addr: custAddr.value.trim(),
-      tel:  custTel.value.trim()
-    };
-  }
-
-  function formatOrderText(o){
+  function buildMessage(){
+    const name = custName.value.trim();
+    const addr = custAddr.value.trim();
+    const tel  = custTel.value.trim();
     return `🛍️ คำสั่งซื้อ SW Perfume
-เลขออเดอร์: ${o.orderId}
-กลิ่น: ${o.product}
-ราคา: ${o.price} บาท
+กลิ่น: ${selected.name}
+ราคา: ${PRICE_THB} บาท
 
-👤 ชื่อ: ${o.name}
+👤 ชื่อ: ${name}
 📦 ที่อยู่:
-${o.addr}
+${addr}
 
-📞 เบอร์โทร: ${o.tel}
-
-✅ โอนเงินแล้ว (แนบสลิปด้วยค่ะ/ครับ)`;
+📞 เบอร์โทร: ${tel}`;
   }
 
-  // ✅ เปิด LINE OA พร้อมข้อความ (ลูกค้ากดส่งครั้งเดียว)
-  // ใช้รูปแบบ oaMessage ซึ่งเหมาะกับ LINE OA
-  function openLineWithText(text){
-    const msg = encodeURIComponent(text);
+  // ✅ เปิด LINE + ใส่ข้อความให้เลย (ลูกค้ากดส่งครั้งเดียว)
+  function openLineWithPrefilledText(msg){
+    const encoded = encodeURIComponent(msg);
 
-    // 1) ลองเปิดด้วย schema ของ LINE ก่อน (มือถือส่วนใหญ่เปิดแอปได้)
-    const schemaUrl = `line://msg/text/${msg}`;
+    // 1) พยายามเปิด LINE แอปด้วย schema
+    const schemaUrl = `line://msg/text/${encoded}`;
 
-    // 2) fallback เป็นลิงก์ OA message (ถ้า schema ใช้ไม่ได้)
-    const oaUrl = `https://line.me/R/oaMessage/${encodeURIComponent(LINE_OA_ID)}/?${msg}`;
+    // 2) fallback เป็น OA message URL (บางเครื่องจะไปเว็บ)
+    const oaUrl = `https://line.me/R/oaMessage/${encodeURIComponent(LINE_OA_ID)}/?${encoded}`;
 
-    // พยายามเปิด schema ก่อน แล้วค่อย fallback
     window.location.href = schemaUrl;
-
-    // fallback หลัง 700ms (ถ้าเครื่องไม่รองรับ schema)
-    setTimeout(() => {
-      window.location.href = oaUrl;
-    }, 700);
+    setTimeout(() => { window.location.href = oaUrl; }, 700);
   }
 
-  btnConfirm.addEventListener("click", () => {
+  btnLineOrder.addEventListener("click", () => {
     if(!validate()) return;
-
-    currentOrder = buildOrder();
-
-    bankQrImg.src = BANK_QR_SRC;
-
-    const text = formatOrderText(currentOrder);
-    orderSummary.textContent = text;
-
-    showSection(paySection);
-    paySection.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
-  btnOpenLine.addEventListener("click", () => {
-    if(!currentOrder) return;
-    openLineWithText(formatOrderText(currentOrder));
-  });
-
-  btnSuccess.addEventListener("click", () => {
-    if(!currentOrder) return;
-    successSummary.textContent =
-      formatOrderText(currentOrder) + "\n\n📦 รอรับสินค้าภายใน 5 วัน";
-    showSection(successSection);
-    successSection.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-
-  btnBackHome.addEventListener("click", () => {
-    currentOrder = null;
-    showSection(null);
-    document.getElementById("productCard").scrollIntoView({behavior:"smooth", block:"start"});
+    openLineWithPrefilledText(buildMessage());
   });
 
   renderMenu();
