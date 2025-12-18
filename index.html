@@ -141,7 +141,6 @@
 
     .order{ display:none; }
     .order.show{ display:block; }
-
     .order h3{ margin:0 0 10px; font-size:18px; }
 
     .field{ margin-top:10px; }
@@ -269,7 +268,6 @@
         </div>
       </div>
 
-      <!-- ✅ ช่องกรอก: ชื่อ + ที่อยู่ + เบอร์โทร -->
       <div class="card order" id="orderBox">
         <h3>กรอกข้อมูลจัดส่ง</h3>
 
@@ -295,7 +293,6 @@
         </div>
       </div>
 
-      <!-- ✅ หน้า QR LINE (ในเพจเดียวกัน) -->
       <div class="card qrBox" id="qrBox">
         <h3>สแกน QR เพื่อส่งเข้า LINE</h3>
         <div class="qrWrap">
@@ -324,11 +321,9 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ แก้ชื่อไฟล์ QR LINE ให้ถูกต้องตามที่คุณบอก
-  // ต้องมีไฟล์อยู่จริง: images/Qr_Code_Line.png
+  // ✅ ชื่อไฟล์จริงตาม repo ของคุณ (ต้องตรงตัวพิมพ์เล็ก/ใหญ่)
   const LINE_QR_IMAGE = "images/Qr_Code_Line.png";
 
-  // ✅ รายชื่อ + ไฟล์รูป (ตามชื่อไฟล์ในโฟลเดอร์ images)
   const perfumes = [
     { name: "Blossom Princess",   desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img: "images/Blossom%20Princess.jpg" },
     { name: "Coco Elegante",      desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img: "images/Coco%20Elegante.jpg" },
@@ -339,7 +334,6 @@
     { name: "Scarlet Seduce",     desc: "หวานเย้ายวน เฟมินีน โทนฟลอรัลนุ่ม ๆ ผสมความหรูแบบโรแมนติก", img: "images/Scarlet%20Seduce.jpg" }
   ];
 
-  // ---- UI wiring ----
   const menuEl = document.getElementById("menu");
   const pImg = document.getElementById("pImg");
   const imgHint = document.getElementById("imgHint");
@@ -351,12 +345,10 @@
   const orderBox = document.getElementById("orderBox");
   const confirmBtn = document.getElementById("confirmBtn");
 
-  // ✅ ฟิลด์: ชื่อ/ที่อยู่/เบอร์
   const custName = document.getElementById("custName");
   const custAddr = document.getElementById("custAddr");
   const custTel  = document.getElementById("custTel");
 
-  // ✅ QR section
   const qrBox = document.getElementById("qrBox");
   const qrImg = document.getElementById("qrImg");
   const openLineBtn = document.getElementById("openLineBtn");
@@ -391,7 +383,6 @@
     pImg.alt = selected.name;
     pImg.src = selected.img;
 
-    // reset forms + hide sections
     orderBox.classList.remove("show");
     qrBox.classList.remove("show");
     custName.value = "";
@@ -457,13 +448,11 @@ ${addr}
 📞 เบอร์โทร:
 ${tel}`;
 
-    // ✅ ลิงก์เปิด LINE พร้อมข้อความ (ใช้กับปุ่ม "เปิด LINE")
     lastLineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(message);
 
-    // ✅ โชว์ QR LINE จากไฟล์ของคุณ (ชื่อถูกต้องแล้ว)
-    qrImg.src = LINE_QR_IMAGE.png;
+    // ✅ ใช้ไฟล์ QR ของคุณ (ชื่อถูกต้อง: Qr_Code_Line.png)
+    qrImg.src = LINE_QR_IMAGE;
 
-    // โชว์หน้า QR (ในหน้าเดิม)
     qrBox.classList.add("show");
     qrBox.scrollIntoView({behavior:"smooth", block:"start"});
   });
@@ -476,4 +465,4 @@ ${tel}`;
   renderMenu();
 </script>
 </body>
-            </html>
+</html>
