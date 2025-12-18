@@ -409,20 +409,27 @@
     return true;
   }
 
-  // ✅ deep link ไป LINE OA + ข้อความพร้อมส่ง (กดส่งครั้งเดียว)
-  function buildLineOaMessageLink(oaId, message){
-    const id = (oaId || "").trim(); // ต้องมี @ ด้วย
-    return `https://line.me/R/oaMessage/${encodeURIComponent(id)}/?text=${encodeURIComponent(message)}`;
-  }
+  // ✅ ใส่แค่ ID ของร้าน
+const LINE_OA_ID = "@657myfpn";
 
-  confirmBtn.addEventListener("click", () => {
-    if(!validateRequired()) return;
+function lineChatLinkById(id){
+  // เปิดหน้าแชท/โปรไฟล์ OA ผ่านเว็บ (fallback)
+  return `https://line.me/R/ti/p/${encodeURIComponent(id)}`;
+}
 
-    const name = custName.value.trim();
-    const addr = custAddr.value.trim();
-    const tel  = custTel.value.trim();
+function lineOaMessageLinkById(id, message){
+  // ลิงก์เปิด LINE พร้อม “ข้อความขึ้นมาแล้ว”
+  return `https://line.me/R/oaMessage/${encodeURIComponent(id)}/?text=${encodeURIComponent(message)}`;
+}
 
-    const message =
+confirmBtn.addEventListener("click", async () => {
+  if(!validateRequired()) return;
+
+  const name = custName.value.trim();
+  const addr = custAddr.value.trim();
+  const tel  = custTel.value.trim();
+
+  const message =
 `🛍️ คำสั่งซื้อ SW Perfume
 กลิ่น: ${selected.name}
 ราคา: ${PRICE_THB} บาท
@@ -433,18 +440,27 @@ ${addr}
 
 📞 เบอร์โทร: ${tel}`;
 
-    const url = buildLineOaMessageLink(LINE_OA_ID, message);
+  // 1) พยายามเปิด LINE พร้อมข้อความก่อน
+  const url = lineOaMessageLinkById(LINE_OA_ID, message);
+  window.location.href = url;
 
-    // เด้งเข้า LINE
-    window.location.href = url;
+  // 2) ถ้าเครื่องไม่ยอมเด้งเข้าแอป (ยังอยู่หน้าเดิม) → เปิดหน้า OA แล้ว “คัดลอกข้อความให้เลย”
+  setTimeout(async () => {
+    if (document.visibilityState === "visible") {
+      // คัดลอกข้อความให้อัตโนมัติ (ถ้าเบราว์เซอร์อนุญาต)
+      try { await navigator.clipboard.writeText(message); } catch(e){}
 
-    // เผื่อบางเครื่องบล็อก ให้โชว์ลิงก์เป็น fallback
-    setTimeout(() => {
-      if (document.visibilityState === "visible") {
-        alert("ถ้าไม่เด้งเข้า LINE ให้กด OK แล้วกดปุ่มยืนยันอีกครั้ง หรือเปิดเว็บนี้ด้วย Chrome ในมือถือ");
-      }
-    }, 900);
-  });
+      alert(
+        "เครื่องนี้ไม่สามารถเด้งเข้าแอป LINE อัตโนมัติได้\n" +
+        "ฉันคัดลอกข้อความคำสั่งซื้อไว้ให้แล้ว (ถ้าเบราว์เซอร์อนุญาต)\n\n" +
+        "ขั้นต่อไป: กด OK → เข้าไลน์ร้าน → วางข้อความ → กดส่งครั้งเดียว"
+      );
+
+      window.location.href = lineChatLinkById(LINE_OA_ID);
+    }
+  }, 900);
+});
+
 
   renderMenu();
 </script>
