@@ -44,6 +44,7 @@
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 6px 14px rgba(255,127,176,.35);
     }
+
     .wrap{ max-width:1100px; margin: 0 auto; padding: 18px 16px 40px; }
     .layout{ display:grid; grid-template-columns: 280px 1fr; gap:16px; align-items:start; }
 
@@ -116,6 +117,7 @@
 
     .details h2{ margin:0 0 8px; font-size:22px; }
     .details p{ margin:0 0 12px; color: var(--muted); line-height:1.55; }
+
     .priceRow{
       display:flex; align-items:baseline; justify-content:space-between; gap:12px;
       padding:12px 12px;
@@ -126,6 +128,7 @@
     }
     .priceRow .label{ color: var(--muted); font-size:14px; }
     .priceRow .price{ font-weight:900; font-size:22px; color: #c2185b; }
+
     .addBtn{
       width:100%; margin-top:12px;
       border:none;
@@ -141,8 +144,8 @@
 
     .order{ display:none; }
     .order.show{ display:block; }
-    .order h3{ margin:0 0 10px; font-size:18px; }
 
+    .order h3{ margin:0 0 10px; font-size:18px; }
     .field{ margin-top:10px; }
     .field label{
       display:block;
@@ -160,11 +163,11 @@
     }
     textarea{ min-height: 90px; resize: vertical; }
 
-    .confirmBtn{
+    .payBtn{
       width:100%;
       margin-top:12px;
       border:none;
-      background: #111;
+      background:#111;
       color:#fff;
       padding:14px;
       border-radius: 16px;
@@ -179,14 +182,15 @@
       line-height:1.4;
     }
 
-    /* QR card */
-    .qrBox{ display:none; }
-    .qrBox.show{ display:block; }
-    .qrWrap{
+    /* Payment box */
+    .payBox{ display:none; }
+    .payBox.show{ display:block; }
+
+    .payWrap{
       display:grid;
       grid-template-columns: 260px 1fr;
       gap:14px;
-      align-items:center;
+      align-items:start;
     }
     .qrImg{
       width:260px; height:260px;
@@ -197,11 +201,11 @@
       overflow:hidden;
     }
     .qrImg img{ width:100%; height:100%; object-fit:contain; }
-    .openLineBtn{
+
+    .uploadBtn{
       width:100%;
-      border:none;
-      background: linear-gradient(135deg, #06c755, #00b24c);
-      color:#fff;
+      border: 1px solid rgba(242,201,214,.95);
+      background:#fff;
       padding:14px;
       border-radius: 16px;
       cursor:pointer;
@@ -209,6 +213,43 @@
       font-size:16px;
       margin-top:10px;
     }
+
+    .fileName{
+      margin-top:8px;
+      font-size:12px;
+      color: var(--muted);
+      border:1px dashed rgba(255,127,176,.35);
+      background: rgba(255,127,176,.06);
+      padding:10px 12px;
+      border-radius: 14px;
+      word-break: break-word;
+    }
+
+    .preview{
+      margin-top:10px;
+      border:1px solid rgba(242,201,214,.9);
+      border-radius: 16px;
+      overflow:hidden;
+      background:#fff;
+      display:none;
+    }
+    .preview img{ width:100%; height:auto; display:block; }
+
+    .confirmBuyBtn{
+      width:100%;
+      border:none;
+      background: linear-gradient(135deg, #06c755, #00b24c);
+      color:#fff;
+      padding:14px;
+      border-radius: 16px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:16px;
+      margin-top:10px;
+      opacity:.55;
+    }
+    .confirmBuyBtn.enabled{ opacity:1; }
+
     .small{ font-size:12px; color: var(--muted); line-height:1.5; }
 
     @media (max-width: 880px){
@@ -216,7 +257,7 @@
       .sidebar{ position:relative; top:0; }
       .product{ grid-template-columns: 1fr; }
       .pic{ min-height: 240px; }
-      .qrWrap{ grid-template-columns: 1fr; }
+      .payWrap{ grid-template-columns: 1fr; }
       .qrImg{ width:100%; height:auto; aspect-ratio:1/1; }
     }
   </style>
@@ -263,11 +304,12 @@
               <div class="price" id="pPrice">390 บาท</div>
             </div>
 
-            <button class="addBtn" id="addBtn" disabled>หยิบใส่ตะกร้า</button>
+            <button class="addBtn" id="addBtn" disabled>สั่งซื้อ</button>
           </div>
         </div>
       </div>
 
+      <!-- ฟอร์มกรอกข้อมูล -->
       <div class="card order" id="orderBox">
         <h3>กรอกข้อมูลจัดส่ง</h3>
 
@@ -286,29 +328,44 @@
           <input id="custTel" type="tel" placeholder="เช่น 08x-xxx-xxxx" required />
         </div>
 
-        <button class="confirmBtn" id="confirmBtn">ยืนยันคำสั่งซื้อ</button>
+        <!-- ✅ ชำระเงิน -->
+        <button class="payBtn" id="payBtn">ชำระเงิน</button>
 
         <div class="hint">
-          ต้องกรอก “ชื่อ / ที่อยู่ / เบอร์โทร” ให้ครบก่อน จึงจะไปหน้า QR LINE เพื่อสแกนส่งคำสั่งซื้อ
+          กด “ชำระเงิน” แล้ว QR Prompay จะขึ้น จากนั้นต้อง “ส่งสลิป” (อัปโหลดไฟล์) ก่อนจึงจะกด “ยืนยันการซื้อ” เพื่อเปิด LINE พร้อมข้อความสรุปให้แนบสลิปต่อได้
         </div>
       </div>
 
-      <div class="card qrBox" id="qrBox">
-        <h3>สแกน QR เพื่อส่งเข้า LINE</h3>
-        <div class="qrWrap">
+      <!-- ✅ หน้าชำระเงิน -->
+      <div class="card payBox" id="payBox">
+        <h3>สแกนจ่าย Prompay + ส่งสลิป</h3>
+        <div class="payWrap">
           <div class="qrImg">
-            <img id="qrImg" alt="QR LINE" />
+            <img id="qrImg" alt="QR Prompay" />
           </div>
+
           <div>
             <div class="small">
-              1) เปิด LINE บนมือถือ<br>
-              2) ไปที่ “สแกน QR”<br>
-              3) สแกนโค้ดนี้ เพื่อเข้าแชท LINE แล้ววาง/ส่งข้อความคำสั่งซื้อ<br><br>
-              * ถ้าใช้มือถืออยู่แล้ว กดปุ่ม “เปิด LINE” ได้เลย (จะเปิดข้อความสรุปให้)
+              1) สแกน QR Prompay เพื่อชำระเงิน<br>
+              2) กด “ส่งสลิป” เพื่ออัปโหลดไฟล์สลิป<br>
+              3) เมื่ออัปโหลดแล้ว ปุ่ม “ยืนยันการซื้อ” จะกดได้<br><br>
+              <b>หมายเหตุ:</b> ระบบเว็บเปิด LINE ได้พร้อม “ข้อความสรุป” เท่านั้น
+              ลูกค้าต้องแนบ/ส่งรูปสลิปในแชท LINE ต่อทันที
             </div>
-            <button class="openLineBtn" id="openLineBtn">เปิด LINE</button>
+
+            <input id="slipInput" type="file" accept="image/*,.pdf" hidden />
+            <button class="uploadBtn" id="uploadBtn">ส่งสลิป (อัปโหลดไฟล์)</button>
+
+            <div class="fileName" id="fileName">ยังไม่ได้อัปโหลดสลิป</div>
+
+            <div class="preview" id="preview">
+              <img id="previewImg" alt="ตัวอย่างสลิป" />
+            </div>
+
+            <button class="confirmBuyBtn" id="confirmBuyBtn" disabled>ยืนยันการซื้อ (เปิด LINE)</button>
+
             <div class="small" style="margin-top:8px;">
-              ถ้าเปิดไม่ได้ ให้สแกน QR ด้วยกล้อง/สแกน QR ใน LINE
+              ถ้าปุ่มยืนยันยังจางอยู่ แปลว่ายังไม่ได้อัปโหลดสลิป
             </div>
           </div>
         </div>
@@ -321,9 +378,11 @@
 <script>
   const PRICE_THB = 390;
 
-  // ✅ ชื่อไฟล์จริงตาม repo ของคุณ (ต้องตรงตัวพิมพ์เล็ก/ใหญ่)
-  const LINE_QR_IMAGE = "images/Qr_Code_Line.png";
+  // ✅ ชื่อภาพ QR สำหรับสแกนชำระเงิน: Prompay
+  // วางไฟล์ไว้ที่: images/Prompay.jpg
+  const PROMPAY_QR_IMAGE = "images/Prompay.jpg";
 
+  // ✅ รายชื่อ + รูปสินค้า
   const perfumes = [
     { name: "Blossom Princess",   desc: "หวานละมุน โทนดอกไม้–ผลไม้ ใส ๆ เฟมินีน เหมาะใช้ทุกวัน", img: "images/Blossom%20Princess.jpg" },
     { name: "Coco Elegante",      desc: "ซิตรัสหรู ดูแพง สะอาดชิค ผสมโทนไม้และดอกไม้ขาวแบบผู้หญิงยุคใหม่", img: "images/Coco%20Elegante.jpg" },
@@ -334,27 +393,34 @@
     { name: "Scarlet Seduce",     desc: "หวานเย้ายวน เฟมินีน โทนฟลอรัลนุ่ม ๆ ผสมความหรูแบบโรแมนติก", img: "images/Scarlet%20Seduce.jpg" }
   ];
 
-  const menuEl = document.getElementById("menu");
-  const pImg = document.getElementById("pImg");
-  const imgHint = document.getElementById("imgHint");
-  const pName = document.getElementById("pName");
-  const pDesc = document.getElementById("pDesc");
-  const pPrice = document.getElementById("pPrice");
+  const menuEl   = document.getElementById("menu");
+  const pImg     = document.getElementById("pImg");
+  const imgHint  = document.getElementById("imgHint");
+  const pName    = document.getElementById("pName");
+  const pDesc    = document.getElementById("pDesc");
+  const pPrice   = document.getElementById("pPrice");
 
-  const addBtn = document.getElementById("addBtn");
+  const addBtn   = document.getElementById("addBtn");
   const orderBox = document.getElementById("orderBox");
-  const confirmBtn = document.getElementById("confirmBtn");
+  const payBtn   = document.getElementById("payBtn");
 
   const custName = document.getElementById("custName");
   const custAddr = document.getElementById("custAddr");
   const custTel  = document.getElementById("custTel");
 
-  const qrBox = document.getElementById("qrBox");
-  const qrImg = document.getElementById("qrImg");
-  const openLineBtn = document.getElementById("openLineBtn");
+  const payBox        = document.getElementById("payBox");
+  const qrImg         = document.getElementById("qrImg");
+  const uploadBtn     = document.getElementById("uploadBtn");
+  const slipInput     = document.getElementById("slipInput");
+  const fileNameEl    = document.getElementById("fileName");
+  const confirmBuyBtn = document.getElementById("confirmBuyBtn");
+
+  const preview    = document.getElementById("preview");
+  const previewImg = document.getElementById("previewImg");
 
   let selected = null;
   let lastLineUrl = "";
+  let slipFile = null;
 
   function renderMenu(){
     menuEl.innerHTML = "";
@@ -371,6 +437,19 @@
     [...menuEl.children].forEach((el, i) => el.classList.toggle("active", i === idx));
   }
 
+  function resetPaymentState(){
+    payBox.classList.remove("show");
+    qrImg.src = "";
+    slipFile = null;
+    slipInput.value = "";
+    fileNameEl.textContent = "ยังไม่ได้อัปโหลดสลิป";
+    preview.style.display = "none";
+    previewImg.src = "";
+    confirmBuyBtn.disabled = true;
+    confirmBuyBtn.classList.remove("enabled");
+    lastLineUrl = "";
+  }
+
   function selectProduct(idx){
     selected = perfumes[idx];
     setActive(idx);
@@ -384,11 +463,10 @@
     pImg.src = selected.img;
 
     orderBox.classList.remove("show");
-    qrBox.classList.remove("show");
     custName.value = "";
     custAddr.value = "";
     custTel.value  = "";
-    lastLineUrl = "";
+    resetPaymentState();
 
     addBtn.disabled = false;
     document.getElementById("productCard").scrollIntoView({behavior:"smooth", block:"start"});
@@ -399,7 +477,7 @@
   addBtn.addEventListener("click", () => {
     if(!selected) return;
     orderBox.classList.add("show");
-    qrBox.classList.remove("show");
+    resetPaymentState();
     orderBox.scrollIntoView({behavior:"smooth", block:"start"});
   });
 
@@ -408,7 +486,8 @@
     return /^\d{9,10}$/.test(t);
   }
 
-  confirmBtn.addEventListener("click", () => {
+  // ✅ กด “ชำระเงิน” → โชว์ QR Prompay + ปุ่มส่งสลิป
+  payBtn.addEventListener("click", () => {
     if(!selected){
       alert("กรุณาเลือกน้ำหอมก่อน");
       return;
@@ -434,6 +513,7 @@
       return;
     }
 
+    // ข้อความสรุป (ให้ลูกค้าแนบ/ส่งสลิปใน LINE ต่อ)
     const message =
 `🛍️ คำสั่งซื้อ SW Perfume
 กลิ่น: ${selected.name}
@@ -446,19 +526,74 @@ ${name}
 ${addr}
 
 📞 เบอร์โทร:
-${tel}`;
+${tel}
+
+📎 กรุณาแนบรูปสลิปการโอนในแชทนี้ด้วยครับ/ค่ะ`;
 
     lastLineUrl = "https://line.me/R/msg/text/?" + encodeURIComponent(message);
 
-    // ✅ ใช้ไฟล์ QR ของคุณ (ชื่อถูกต้อง: Qr_Code_Line.png)
-    qrImg.src = LINE_QR_IMAGE;
+    // โชว์ QR Prompay
+    qrImg.src = PROMPAY_QR_IMAGE;
 
-    qrBox.classList.add("show");
-    qrBox.scrollIntoView({behavior:"smooth", block:"start"});
+    // โชว์หน้าชำระเงิน
+    payBox.classList.add("show");
+    payBox.scrollIntoView({behavior:"smooth", block:"start"});
   });
 
-  openLineBtn.addEventListener("click", () => {
-    if(!lastLineUrl) return;
+  // ✅ ส่งสลิป (อัปโหลด)
+  uploadBtn.addEventListener("click", () => slipInput.click());
+
+  slipInput.addEventListener("change", () => {
+    const file = slipInput.files && slipInput.files[0];
+    if(!file){
+      slipFile = null;
+      fileNameEl.textContent = "ยังไม่ได้อัปโหลดสลิป";
+      confirmBuyBtn.disabled = true;
+      confirmBuyBtn.classList.remove("enabled");
+      preview.style.display = "none";
+      previewImg.src = "";
+      return;
+    }
+
+    // จำกัดขนาดไฟล์
+    const maxMB = 8;
+    const sizeMB = file.size / (1024*1024);
+    if(sizeMB > maxMB){
+      alert(`ไฟล์ใหญ่เกินไป (${sizeMB.toFixed(1)}MB) กรุณาเลือกไฟล์ไม่เกิน ${maxMB}MB`);
+      slipInput.value = "";
+      return;
+    }
+
+    slipFile = file;
+    fileNameEl.textContent = `อัปโหลดแล้ว: ${file.name} (${sizeMB.toFixed(1)}MB)`;
+
+    if(file.type.startsWith("image/")){
+      const url = URL.createObjectURL(file);
+      previewImg.src = url;
+      preview.style.display = "block";
+    }else{
+      preview.style.display = "none";
+      previewImg.src = "";
+    }
+
+    confirmBuyBtn.disabled = false;
+    confirmBuyBtn.classList.add("enabled");
+  });
+
+  // ✅ ยืนยันการซื้อ → เปิด LINE พร้อมข้อความสรุป (ให้แนบสลิปในแชท LINE ต่อ)
+  confirmBuyBtn.addEventListener("click", () => {
+    if(!selected){
+      alert("กรุณาเลือกน้ำหอมก่อน");
+      return;
+    }
+    if(!slipFile){
+      alert("กรุณาอัปโหลดสลิปก่อน จึงจะยืนยันการซื้อได้");
+      return;
+    }
+    if(!lastLineUrl){
+      alert("เกิดข้อผิดพลาด: ไม่มีลิงก์ LINE");
+      return;
+    }
     window.open(lastLineUrl, "_blank");
   });
 
